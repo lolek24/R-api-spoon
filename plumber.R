@@ -24,3 +24,19 @@ function(spec){
   plot(myData$Sepal.Length, myData$Petal.Length,
        main=title, xlab="Sepal Length", ylab="Petal Length")
 }
+
+#' Plot a histogram
+#' @png
+#' @get /plot2
+function(){
+  rand <- rnorm(100)
+  hist(rand)
+}
+
+#' Return the sum of two numbers
+#' @param a The first number to add
+#' @param b The second number to add
+#' @post /sum
+function(a, b){
+  as.numeric(a) + as.numeric(b)
+}

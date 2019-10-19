@@ -1,2 +1,2 @@
 pr <- plumber::plumb("plumber.R")
-pr$run(port=8080)
+pr$run(host="0.0.0.0", port=8080)
