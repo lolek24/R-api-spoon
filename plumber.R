@@ -22,14 +22,13 @@ function(spec){
   }
   
   ## copy current plot to a (large) PNG file
-  ##dev.print(png, file = "myplot.png")
-  
-  ##x11()
+
   tmpfile <- tempfile()
-  png(tmpfile)
-  ##png(file = "myplot.png", bg = "transparent", width = 1024, height = 768)
+  png(tmpfile, type="cairo")
+  
   plot(myData$Sepal.Length, myData$Petal.Length,
        main=title, xlab="Sepal Length", ylab="Petal Length")
+  
   dev.off()
   
   result <- readBin(tmpfile, "raw", n=file.info(tmpfile)$size )
