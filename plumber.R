@@ -9,20 +9,32 @@ function(msg=""){
 
 #' Plot out data from the iris dataset
 #' @param spec If provided, filter the data to only this species (e.g. 'setosa')
+#' @serializer contentType list(type="image/png")
 #' @get /plot
-#' @png
 function(spec){
   myData <- iris
   title <- "All Species"
-
+  
   # Filter if the species was specified
   if (!missing(spec)){
     title <- paste0("Only the '", spec, "' Species")
     myData <- subset(iris, Species == spec)
   }
-
+  
+  ## copy current plot to a (large) PNG file
+  ##dev.print(png, file = "myplot.png")
+  
+  ##x11()
+  tmpfile <- tempfile()
+  png(tmpfile)
+  ##png(file = "myplot.png", bg = "transparent", width = 1024, height = 768)
   plot(myData$Sepal.Length, myData$Petal.Length,
        main=title, xlab="Sepal Length", ylab="Petal Length")
+  dev.off()
+  
+  result <- readBin(tmpfile, "raw", n=file.info(tmpfile)$size )
+  
+  return(result)
 }
 
 #' Plot a histogram
@@ -30,7 +42,7 @@ function(spec){
 #' @get /plot2
 function(){
   rand <- rnorm(100)
-  hist(rand)
+  shist(rand)
 }
 
 #' Return the sum of two numbers

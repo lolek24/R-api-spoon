@@ -4,4 +4,4 @@ applications:
   disk_quota: 1G
   buildpacks:
   - r_buildpack
-  command:  R -f run.R --no-save
+  command:  R -f run.R
